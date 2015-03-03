@@ -26,12 +26,17 @@
 package org.lorecraft.phpserializer;
 
 import java.util.Map;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import org.junit.Test;
 import org.lorecraft.phparser.SerializedPhpParser;
 import org.lorecraft.phparser.SerializedPhpParserException;
 
-public class SerializedPhpParserTest extends TestCase {
+public class SerializedPhpParserTest {
 
+	@Test
 	public void testParseNull() throws Exception {
 		String input = "N;";
 		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
@@ -39,22 +44,27 @@ public class SerializedPhpParserTest extends TestCase {
 		assertEquals(SerializedPhpParser.NULL, result);
 	}
 
+	@Test
 	public void testParseInteger() throws Exception {
 		assertPrimitive("i:123;", 123L);
 	}
 
+	@Test
 	public void testParseFloat() throws Exception {
 		assertPrimitive("d:123.123;", 123.123d);
 	}
 
+	@Test
 	public void testParseBoolean() throws Exception {
 		assertPrimitive("b:1;", Boolean.TRUE);
 	}
 
+	@Test
 	public void testParseString() throws Exception {
 		assertPrimitive("s:6:\"string\";", "string");
 	}
 
+	@Test
 	@SuppressWarnings("rawtypes")
 	public void testParseArray() throws Exception {
 		String input = "a:1:{i:1;i:2;}";
@@ -65,6 +75,7 @@ public class SerializedPhpParserTest extends TestCase {
 		assertEquals(2L, ((Map) result).get(1L));
 	}
 
+	@Test
 	public void testParseObject() throws Exception {
 		String input = "O:8:\"TypeName\":1:{s:3:\"foo\";s:3:\"bar\";}";
 		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
@@ -76,6 +87,7 @@ public class SerializedPhpParserTest extends TestCase {
 
 	}
 
+	@Test
 	@SuppressWarnings("rawtypes")
 	public void testParseComplexDataStructure() throws Exception {
 		String input = "a:2:{i:0;a:8:{s:5:\"class\";O:7:\"MyClass\":1:{s:5:\"pippo\";s:4:\"test\";}i:0;i:1;i:1;d:0.19999998807907104;i:2;b:1;i:3;b:0;i:4;N;i:5;a:1:{i:0;s:42:\"\";\";\";\";\";AäüÖRÜßÃTÍLÇÅ\";\";\";\";\";\";}i:6;O:6:\"Object\":0:{}}i:1;a:8:{s:5:\"class\";O:7:\"MyClass\":1:{s:5:\"pippo\";s:4:\"test\";}i:0;i:1;i:1;d:0.19999998807907104;i:2;b:1;i:3;b:0;i:4;N;i:5;a:1:{i:0;s:42:\"\";\";\";\";\";AäüÖRÜßÃTÍLÇÅ\";\";\";\";\";\";}i:6;O:6:\"Object\":0:{}}}";
@@ -104,6 +116,7 @@ public class SerializedPhpParserTest extends TestCase {
 			((Map) ((Map) results.get("ResultSet")).get("Result")).size());
 	}
 
+	@Test
 	public void testParseStructureWithSpecialChars() throws Exception {
 		String input = "a:1:{i:0;O:9:\"albumitem\":19:{s:5:\"image\";O:5:\"image\":12:{s:4:\"name\";"
 			+ "s:26:\"top_story_promo_transition\";s:4:\"type\";s:3:\"png\";s:5:\"width\";i:640;"
@@ -124,6 +137,7 @@ public class SerializedPhpParserTest extends TestCase {
 		assertTrue(results.toString().indexOf("sup�rb") > 0);
 	}
 
+	@Test
 	@SuppressWarnings("rawtypes")
 	public void testAcceptedAttributeNames() throws Exception {
 		// sample output of a yahoo web image search api call
@@ -157,66 +171,77 @@ public class SerializedPhpParserTest extends TestCase {
 			.get("totalResultsAvailable"));
 	}
 
+	@Test
 	public void testExceptionWrongArrayLength1() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testExceptionWrongArrayLength2() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;i:22;i:3;d:21378;}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testExceptionWrongStringLength1() {
 		String input = "a:2:{i:1;s:8:\"Test Test!\";i:2;s:2:\"TT\";}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testExceptionWrongStringLength2() {
 		String input = "a:2:{i:1;s:11:\"Test Test!\";i:2;s:2:\"TT\";}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testExceptionMissingEndAfterString1() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;s:2:\"TT\"}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testExceptionMissingEndAfterString2() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;s:2:\"TT;}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testExceptionMissingEndAfterInteger() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;i:21387481}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testExceptionMissingEndAfterDouble() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;d:21387481}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testExceptionWrongObjectLength() {
 		String input = "O:9:\"TestClass\":2:{s:4:\"Var1\";i:10;}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testBugDefectStringWithSpezialChar() {
 		String input = "s:4:\"";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testBug2DefectStringWithSpezialChar() {
 		// Wrong Length and not correct ended.
 		String input = "s:2:\"Def";
@@ -232,12 +257,14 @@ public class SerializedPhpParserTest extends TestCase {
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	public void testBugStringWithSpezialChar() throws Exception {
 		String input = "s:4:\"" + '\000' + "\";";
 		String expected = "" + '\000';
 		assertPrimitive(input, expected);
 	}
 
+	@Test
 	@SuppressWarnings("rawtypes")
 	public void testBugReference() throws Exception {
 		String input = "a:4:{s:2:\"t1\";s:6:\"Friend\";i:2;i:10;i:3;R:2;i:4;R:3;}";
@@ -248,12 +275,14 @@ public class SerializedPhpParserTest extends TestCase {
 		assertEquals(((Map) result).get(2L), ((Map) result).get(4L));
 	}
 
+	@Test
 	public void testBugReferenceOutOfRange() throws Exception {
 		String input = "a:4:{s:2:\"t1\";s:6:\"Friend\";i:2;i:10;i:3;R:2;i:4;R:5;}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
 	}
 
+	@Test
 	@SuppressWarnings("unchecked")
 	public void testWrongEncodingInputString() throws Exception {
 		// ISO-8859-1 String: HäöüÖÜÄ
