@@ -37,7 +37,7 @@ import org.lorecraft.phparser.SerializedPhpParserException;
 public class SerializedPhpParserTest {
 
 	@Test
-	public void testParseNull() throws Exception {
+	public void testParseNull() throws SerializedPhpParserException {
 		String input = "N;";
 		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
 		Object result = serializedPhpParser.parse();
@@ -45,28 +45,28 @@ public class SerializedPhpParserTest {
 	}
 
 	@Test
-	public void testParseInteger() throws Exception {
+	public void testParseInteger() throws SerializedPhpParserException {
 		assertPrimitive("i:123;", 123L);
 	}
 
 	@Test
-	public void testParseFloat() throws Exception {
+	public void testParseFloat() throws SerializedPhpParserException {
 		assertPrimitive("d:123.123;", 123.123d);
 	}
 
 	@Test
-	public void testParseBoolean() throws Exception {
+	public void testParseBoolean() throws SerializedPhpParserException {
 		assertPrimitive("b:1;", Boolean.TRUE);
 	}
 
 	@Test
-	public void testParseString() throws Exception {
+	public void testParseString() throws SerializedPhpParserException {
 		assertPrimitive("s:6:\"string\";", "string");
 	}
 
 	@Test
 	@SuppressWarnings("rawtypes")
-	public void testParseArray() throws Exception {
+	public void testParseArray() throws SerializedPhpParserException {
 		String input = "a:1:{i:1;i:2;}";
 		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
 		Object result = serializedPhpParser.parse();
@@ -76,7 +76,7 @@ public class SerializedPhpParserTest {
 	}
 
 	@Test
-	public void testParseObject() throws Exception {
+	public void testParseObject() throws SerializedPhpParserException {
 		String input = "O:8:\"TypeName\":1:{s:3:\"foo\";s:3:\"bar\";}";
 		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
 		Object result = serializedPhpParser.parse();
@@ -89,7 +89,7 @@ public class SerializedPhpParserTest {
 
 	@Test
 	@SuppressWarnings("rawtypes")
-	public void testParseComplexDataStructure() throws Exception {
+	public void testParseComplexDataStructure() throws SerializedPhpParserException {
 		String input = "a:2:{i:0;a:8:{s:5:\"class\";O:7:\"MyClass\":1:{s:5:\"pippo\";s:4:\"test\";}i:0;i:1;i:1;d:0.19999998807907104;i:2;b:1;i:3;b:0;i:4;N;i:5;a:1:{i:0;s:42:\"\";\";\";\";\";AäüÖRÜßÃTÍLÇÅ\";\";\";\";\";\";}i:6;O:6:\"Object\":0:{}}i:1;a:8:{s:5:\"class\";O:7:\"MyClass\":1:{s:5:\"pippo\";s:4:\"test\";}i:0;i:1;i:1;d:0.19999998807907104;i:2;b:1;i:3;b:0;i:4;N;i:5;a:1:{i:0;s:42:\"\";\";\";\";\";AäüÖRÜßÃTÍLÇÅ\";\";\";\";\";\";}i:6;O:6:\"Object\":0:{}}}";
 		new SerializedPhpParser(input).parse();
 
@@ -117,7 +117,7 @@ public class SerializedPhpParserTest {
 	}
 
 	@Test
-	public void testParseStructureWithSpecialChars() throws Exception {
+	public void testParseStructureWithSpecialChars() throws SerializedPhpParserException {
 		String input = "a:1:{i:0;O:9:\"albumitem\":19:{s:5:\"image\";O:5:\"image\":12:{s:4:\"name\";"
 			+ "s:26:\"top_story_promo_transition\";s:4:\"type\";s:3:\"png\";s:5:\"width\";i:640;"
 			+ "s:6:\"height\";i:212;s:11:\"resizedName\";s:32:\"top_story_promo_transition.sized\";"
@@ -139,7 +139,7 @@ public class SerializedPhpParserTest {
 
 	@Test
 	@SuppressWarnings("rawtypes")
-	public void testAcceptedAttributeNames() throws Exception {
+	public void testAcceptedAttributeNames() throws SerializedPhpParserException {
 		// sample output of a yahoo web image search api call
 		String input = "a:1:{s:9:\"ResultSet\";a:4:{s:21:\"totalResultsAvailable\";s:7:\"1177824\";s:20:\"totalResultsReturned\";"
 			+ "i:2;s:19:\"firstResultPosition\";i:1;s:6:\"Result\";a:2:{i:0;a:10:{s:5:\"Title\";s:12:\"corvette.jpg\";"
@@ -258,7 +258,7 @@ public class SerializedPhpParserTest {
 	}
 
 	@Test
-	public void testBugStringWithSpezialChar() throws Exception {
+	public void testBugStringWithSpezialChar() throws SerializedPhpParserException {
 		String input = "s:4:\"" + '\000' + "\";";
 		String expected = "" + '\000';
 		assertPrimitive(input, expected);
@@ -266,7 +266,7 @@ public class SerializedPhpParserTest {
 
 	@Test
 	@SuppressWarnings("rawtypes")
-	public void testBugReference() throws Exception {
+	public void testBugReference() throws SerializedPhpParserException {
 		String input = "a:4:{s:2:\"t1\";s:6:\"Friend\";i:2;i:10;i:3;R:2;i:4;R:3;}";
 		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
 		Object result = serializedPhpParser.parse();
@@ -276,7 +276,7 @@ public class SerializedPhpParserTest {
 	}
 
 	@Test
-	public void testBugReferenceOutOfRange() throws Exception {
+	public void testBugReferenceOutOfRange() {
 		String input = "a:4:{s:2:\"t1\";s:6:\"Friend\";i:2;i:10;i:3;R:2;i:4;R:5;}";
 		assertExceptionSimple(
 			"org.lorecraft.phparser.SerializedPhpParserException", input);
@@ -284,7 +284,7 @@ public class SerializedPhpParserTest {
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void testWrongEncodingInputString() throws Exception {
+	public void testWrongEncodingInputString() throws SerializedPhpParserException {
 		// ISO-8859-1 String: HäöüÖÜÄ
 		String expected = "H" + '\344' + '\366' + '\374' + '\326' + '\334' + '\304';
 		String input = "a:1:{s:3:\"Dat\";s:7:\"" + expected + "\";}";
@@ -320,7 +320,7 @@ public class SerializedPhpParserTest {
 		}
 	}
 
-	private void assertPrimitive(String input, Object expected) throws Exception {
+	private void assertPrimitive(String input, Object expected) throws SerializedPhpParserException {
 		assertEquals(expected, new SerializedPhpParser(input).parse());
 	}
 
