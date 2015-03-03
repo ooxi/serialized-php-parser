@@ -28,7 +28,6 @@ package org.lorecraft.phparser;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

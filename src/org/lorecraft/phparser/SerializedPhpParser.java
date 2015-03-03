@@ -25,7 +25,10 @@
  */
 package org.lorecraft.phparser;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -222,6 +225,7 @@ public class SerializedPhpParser {
 		int utfStrLen = 0;
 		int byteCount = 0;
 		int nextCharIndex = 0;
+		
 		while (byteCount != strLen) {
 			nextCharIndex = this.index + utfStrLen++;
 			

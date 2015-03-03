@@ -26,10 +26,9 @@
 package org.lorecraft.phpserializer;
 
 import java.util.Map;
-
 import junit.framework.TestCase;
-
-import org.lorecraft.phparser.*;
+import org.lorecraft.phparser.SerializedPhpParser;
+import org.lorecraft.phparser.SerializedPhpParserException;
 
 public class SerializedPhpParserTest extends TestCase {
 
