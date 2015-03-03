@@ -31,6 +31,10 @@ import java.util.Map.Entry;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+/**
+ * @deprecated Will be removed in version 1.0.0 since it servers no purpose
+ */
+@Deprecated
 public class JSONTransformer {
 
 	@SuppressWarnings("rawtypes")
