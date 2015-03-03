@@ -43,8 +43,45 @@
 	<version>0.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
+
+
 	<url>https://github.com/ooxi/serialized-php-parser</url>
 	<description>Serialized PHP Parser project</description>
+	
+	<developers>
+		<developer>
+			<name>Zsolt Szász</name>
+			<email>zsolt@lorecraft.com</email>
+			<url>https://code.google.com/p/serialized-php-parser/</url>
+		</developer>
+		
+		<developer>
+			<name>Michele Catalano</name>
+			<email>michele@catalano.de</email>
+			<organization>Mayflower GmbH</organization>
+			<organizationUrl>http://www.catalano.de/</organizationUrl>
+			<url>https://github.com/ironpinguin/serialized-php-parser/</url>
+		</developer>
+		
+		<developer>
+			<name>ooxi</name>
+			<email>violetland@mail.ru</email>
+			<url>https://github.com/ooxi/serialized-php-parser</url>
+		</developer>
+	</developers>
+	
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/ooxi/serialized-php-parser/issues</url>
+	</issueManagement>
+	
+	<scm>
+		<url>https://github.com/ooxi/serialized-php-parser</url>
+		<connection>scm:git:git://github.com/ooxi/serialized-php-parser.git</connection>
+		<developerConnection>scm:git:git@github.com:ooxi/serialized-php-parser.git</developerConnection>
+	</scm>
+
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
