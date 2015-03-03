@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2007-2008 Zsolt Szász <zsolt at lorecraft dot com>
- *               2008-2012 Michele Catalano <michele at catalano.de>
- *               2014-2015 ooxi <violetland at mail.ru>
+ * Copyright (c) 2007-2008 Zsolt Szász <zsolt@lorecraft.com>
+ *               2008-2012 Michele Catalano <michele@catalano.de>
+ *               2014-2015 ooxi <violetland@mail.ru>
  * 
  *     https://github.com/ooxi/serialized-php-parser
  *
