@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.lorecraft.phparser;
+package org.github.ooxi.phparser;
 
 public class SerializedPhpParserException extends Exception {
 
