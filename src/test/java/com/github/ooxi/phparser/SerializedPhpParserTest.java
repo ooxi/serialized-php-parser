@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.github.ooxi.phparser;
+package com.github.ooxi.phparser;
 
 import java.util.Map;
 import static org.junit.Assert.assertEquals;
@@ -173,70 +173,70 @@ public class SerializedPhpParserTest {
 	public void testExceptionWrongArrayLength1() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testExceptionWrongArrayLength2() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;i:22;i:3;d:21378;}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testExceptionWrongStringLength1() {
 		String input = "a:2:{i:1;s:8:\"Test Test!\";i:2;s:2:\"TT\";}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testExceptionWrongStringLength2() {
 		String input = "a:2:{i:1;s:11:\"Test Test!\";i:2;s:2:\"TT\";}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testExceptionMissingEndAfterString1() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;s:2:\"TT\"}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testExceptionMissingEndAfterString2() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;s:2:\"TT;}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testExceptionMissingEndAfterInteger() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;i:21387481}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testExceptionMissingEndAfterDouble() {
 		String input = "a:2:{i:1;s:10:\"Test Test!\";i:2;d:21387481}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testExceptionWrongObjectLength() {
 		String input = "O:9:\"TestClass\":2:{s:4:\"Var1\";i:10;}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
 	public void testBugDefectStringWithSpezialChar() {
 		String input = "s:4:\"";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
@@ -244,15 +244,15 @@ public class SerializedPhpParserTest {
 		// Wrong Length and not correct ended.
 		String input = "s:2:\"Def";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 		// Right length, but missing "; at the end of serialized String
 		input = "s:3:\"Def";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 		// Right length, but missing ; at the end of serialized String
 		input = "s:3:\"Def\"";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
@@ -277,7 +277,7 @@ public class SerializedPhpParserTest {
 	public void testBugReferenceOutOfRange() {
 		String input = "a:4:{s:2:\"t1\";s:6:\"Friend\";i:2;i:10;i:3;R:2;i:4;R:5;}";
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input);
+			"com.github.ooxi.phparser.SerializedPhpParserException", input);
 	}
 
 	@Test
@@ -288,7 +288,7 @@ public class SerializedPhpParserTest {
 		String input = "a:1:{s:3:\"Dat\";s:7:\"" + expected + "\";}";
 
 		assertExceptionSimple(
-			"org.github.ooxi.phparser.SerializedPhpParserException", input,
+			"com.github.ooxi.phparser.SerializedPhpParserException", input,
 			SerializedPhpParserException.TO_SHORT_STRING);
 
 		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input,

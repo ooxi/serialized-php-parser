@@ -38,7 +38,7 @@
 		<version>9</version>
 	</parent>
 
-	<groupId>org.github.ooxi.phparser</groupId>
+	<groupId>com.github.ooxi</groupId>
 	<artifactId>serialized-php-parser</artifactId>
 	<version>0.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
